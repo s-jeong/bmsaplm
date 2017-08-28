@@ -1,0 +1,3 @@
+export(CentMat,CombBasis,Eta,LogBF,MCMCEstIteration,MCMCOneIteration,PilotSampleDeltaGlobalUpdateVec,my)
+importFrom(Rcpp,sourceCpp)
+useDynLib(bmsaplm)
