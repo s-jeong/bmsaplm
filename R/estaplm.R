@@ -24,7 +24,7 @@ estaplm=function(y,
 		r=ncol(Z)
 	}
 	if(is.null(colnamesX)) colnamesX=paste("X",1:p,sep="")
-	
+
 	numkn=nKnot
 
 	makelist.col=function(x) if(!is.null(ncol(x))){lapply(seq_len(ncol(x)),function(i) x[,i])}else{list(x)}
@@ -63,14 +63,14 @@ estaplm=function(y,
 	Fset.sigma.sq=Fset.qv=Fset.int=c()
 	Fset.fixeff=matrix(0,num,nfix)
 	Fset.delta.comb=matrix(,length(unlist(delta)),num)
-	
+
 	v.delta=Eta(delta,delta.var,p,r)
 	log.BF.cur=LogBF(v.delta,WstarM.Zi,y,n,-3/4)
 
 	cat("Estimation:",'\n')
 	cat("0% =================== 50% =================== 100%",'\n')
 	for(iter in 1:num){
-	
+
 		MCMC.est=MCMCEstIteration(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur,-3/4)
 		delta=MCMC.est[[1]]
 		log.BF.cur=MCMC.est[[3]]
@@ -79,23 +79,23 @@ estaplm=function(y,
 		Fset.sigma.sq[iter]=MCMC.est[[5]]
 		Fset.fixeff[iter,MCMC.est[[2]]==1]=MCMC.est[[6]]
 		Fset.delta.comb[,iter]=unlist(delta)
-	
+
 		if(iter%%round(num/50)==0) cat("+")
 	}
 	cat("",'\n');cat("",'\n')
-		
+
 	Fset.delta=lapply(split(as.data.frame(Fset.delta.comb),rep(1:p,mapply(length,delta))),function(x)t(as.matrix(x)))
 	set.int=Fset.int[-(1:mcmc.burnin)]
-	set.qv=Fset.qv[-(1:mcmc.burnin)] 
+	set.qv=Fset.qv[-(1:mcmc.burnin)]
 	set.sigma.sq=Fset.sigma.sq[-(1:mcmc.burnin)]
 	set.fixeff=Fset.fixeff[-(1:mcmc.burnin),]
 	set.delta=lapply(Fset.delta,function(x) x[-(1:mcmc.burnin),])
-	if(r!=0) set.beta=set.fixeff[,(nfix-r+1):nfix] else beta=NULL
-	
+	if(r!=0) set.beta=set.fixeff[,(nfix-r+1):nfix] else set.beta=NULL
+
 	p.delta=lapply(set.delta,function(x) apply(as.matrix(x),2,mean))
 	p.delta.f=lapply(set.delta,function(x)mean(apply(as.matrix(x),1,sum)!=0))
 
-	output=cbind(set.int,set.beta,set.sigma.sq); colnames(output)=c("Intercept",colnamesX,"Sigma^2")
+	output=cbind(set.int,set.beta,set.sigma.sq); colnames(output)=c("Intercept",colnamesZ,"Sigma^2")
 	output.summary=round(t(apply(output,2,function(x)c(quantile(x,c(0.025,0.5,0.975)),mean(x),var(x)))),4)
 	colnames(output.summary)=c("2.5% percentile","Median","97.5% percentile","Mean","Variance")
 
@@ -107,9 +107,9 @@ estaplm=function(y,
 		y2.tmp <- new.y2[length(new.y2):1]
 		return(cbind(c(new.x,x.rev),c(new.y1,y2.tmp)))
 	}
-	
+
 	grd=list(); for(i in 1:p) grd[[i]]=seq(min(X[,i]),max(X[,i]),length.out=500)
-	
+
 	fixind=c(0,cumsum(sapply(delta,length)))
 	vcm.list.c=list()
 	for(i in 1:p){

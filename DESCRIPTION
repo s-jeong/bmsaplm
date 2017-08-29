@@ -14,4 +14,4 @@ LinkingTo: Rcpp,
     RcppArmadillo,
 Imports: Rcpp,
     RcppArmadillo
-Depends: RcppArmadillo, nleqslv
+Depends: RcppArmadillo, nleqslv, CAMAN
