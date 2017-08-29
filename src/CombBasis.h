@@ -1,17 +1,12 @@
+#ifndef _COMBBASIS_H
+#define _COMBBASIS_H
+
 #include <RcppArmadillo.h>
 #include "Basis.h"
 
 using namespace Rcpp;
 
-//' Generate a basis matrix
-//'
-//' @param X matrix.
-//' @param knM lisy.
-//' @examples
-//' CombBasis(cbind(1:10,16:25),list(c(2,5,8),c(18,20,22)))
-
 // [[Rcpp::depends(RcppArmadillo)]]
-//' @export
 // [[Rcpp::export]]
 
 arma::mat CombBasis(arma::mat X, List knM) {
@@ -23,3 +18,6 @@ arma::mat CombBasis(arma::mat X, List knM) {
 	}
 	return combB;
 }
+
+#else
+#endif

@@ -494,24 +494,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// MCMCEstIterationCpp
-List MCMCEstIterationCpp(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur, double a);
-RcppExport SEXP bmsaplm_MCMCEstIterationCpp(SEXP XSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP logbf_curSEXP, SEXP aSEXP) {
+// CombBasisCpp
+arma::mat CombBasisCpp(arma::mat X, List knM);
+RcppExport SEXP bmsaplm_CombBasisCpp(SEXP XSEXP, SEXP knMSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type X(XSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type y(ySEXP);
-    Rcpp::traits::input_parameter< List >::type delta(deltaSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type gamma(gammaSEXP);
-    Rcpp::traits::input_parameter< List >::type listdelta(listdeltaSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type numkn(numknSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type p(pSEXP);
-    Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    Rcpp::traits::input_parameter< double >::type logbf_cur(logbf_curSEXP);
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    rcpp_result_gen = Rcpp::wrap(MCMCEstIterationCpp(X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur, a));
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< List >::type knM(knMSEXP);
+    rcpp_result_gen = Rcpp::wrap(CombBasisCpp(X, knM));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -570,7 +561,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"bmsaplm_SampleGammaNonlinear", (DL_FUNC) &bmsaplm_SampleGammaNonlinear, 15},
     {"bmsaplm_SampleGammaNonlinearVec", (DL_FUNC) &bmsaplm_SampleGammaNonlinearVec, 14},
     {"bmsaplm_Subset", (DL_FUNC) &bmsaplm_Subset, 3},
-    {"bmsaplm_MCMCEstIterationCpp", (DL_FUNC) &bmsaplm_MCMCEstIterationCpp, 11},
+    {"bmsaplm_CombBasisCpp", (DL_FUNC) &bmsaplm_CombBasisCpp, 2},
     {"bmsaplm_ZTBBPrior", (DL_FUNC) &bmsaplm_ZTBBPrior, 2},
     {"bmsaplm_ZTBinPrior", (DL_FUNC) &bmsaplm_ZTBinPrior, 3},
     {NULL, NULL, 0}

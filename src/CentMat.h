@@ -1,3 +1,6 @@
+#ifndef _CENTMAT_H
+#define _CENTMAT_H
+
 #include <RcppArmadillo.h>
 
 using namespace Rcpp;
@@ -10,3 +13,6 @@ arma::mat CentMat(arma::mat X, arma::vec meanX) {
 	arma::mat Y = X.each_row() - meanX.t();
 	return Y;
 }
+
+#else
+#endif

@@ -10,15 +10,6 @@ CentMat <- function(X, meanX) {
     .Call('bmsaplm_CentMat', PACKAGE = 'bmsaplm', X, meanX)
 }
 
-#' Generate a basis matrix
-#'
-#' @param X matrix.
-#' @param knM lisy.
-#' @examples
-#' CombBasis(cbind(1:10,16:25),list(c(2,5,8),c(18,20,22)))
-NULL
-
-#' @export
 CombBasis <- function(X, knM) {
     .Call('bmsaplm_CombBasis', PACKAGE = 'bmsaplm', X, knM)
 }
@@ -125,8 +116,8 @@ Subset <- function(delta, X, n) {
 }
 
 #' @export
-MCMCEstIterationCpp <- function(X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur, a) {
-    .Call('bmsaplm_MCMCEstIterationCpp', PACKAGE = 'bmsaplm', X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur, a)
+CombBasisCpp <- function(X, knM) {
+    .Call('bmsaplm_CombBasisCpp', PACKAGE = 'bmsaplm', X, knM)
 }
 
 ZTBBPrior <- function(fordelta, numkn) {
