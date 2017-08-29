@@ -25,7 +25,7 @@ IntegerVector Eta(List delta, IntegerVector gamma, int p, int q) {
 		std::copy(tempdelta.begin(), tempdelta.end(), vecdelta.begin() + index);
 		index += tempdelta.size();
 	}
-	if(q!=0){
+	if(q > 0.5){
 	  std::copy(gamma[Range(p,p+q-1)].begin(), gamma[Range(p,p+q-1)].end(), vecdelta.begin() + index);
 	}
 	return vecdelta;
