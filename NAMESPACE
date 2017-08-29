@@ -1,3 +1,3 @@
-export(CentMat,CombBasis,Eta,LogBF,MCMCEstIteration,MCMCOneIteration,PilotSampleDeltaGlobalUpdateVec,estaplm)
+export(CentMat,CombBasis,Eta,LogBF,MCMCEstIteration,MCMCOneIteration,PilotSampleDeltaGlobalUpdateVec,estaplm,bmsaplm)
 importFrom(Rcpp,sourceCpp)
 useDynLib(bmsaplm)
