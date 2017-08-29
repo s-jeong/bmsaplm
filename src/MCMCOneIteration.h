@@ -45,9 +45,11 @@ List MCMCOneIteration(NumericMatrix X, arma::vec y, List delta, IntegerVector ga
 	temp_gamma = sam_gammaN(0);
 	temp_logpost = sam_gammaN(1);
 	lprior_delta=DeltaPrior(temp_delta,temp_gamma,mu,var,numkn,mu0,phat,p);
-	List sam_gammaL = SampleGammaLinearVec(X,y,n,a,temp_delta,temp_gamma,p,q,temp_logpost,lprior_delta);
-	temp_gamma = sam_gammaL(0);
-	temp_logpost = sam_gammaL(1);
+	if(q > 0.5){
+  	List sam_gammaL = SampleGammaLinearVec(X,y,n,a,temp_delta,temp_gamma,p,q,temp_logpost,lprior_delta);
+  	temp_gamma = sam_gammaL(0);
+  	temp_logpost = sam_gammaL(1);
+	}
 	temp_logbf = temp_logpost-lprior_delta-GammaPrior(temp_gamma,p,q);
 	return List::create(temp_delta,temp_gamma,temp_logbf);
 }
