@@ -2,7 +2,7 @@
 #define _SAMPLEGAMMALINEARVEC_H
 
 #include <RcppArmadillo.h>
-#include "SampleGammalinear.h"
+#include "SampleGammaLinear.h"
 
 using namespace Rcpp;
 using namespace arma;

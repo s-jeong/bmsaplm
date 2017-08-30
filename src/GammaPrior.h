@@ -11,7 +11,7 @@ using namespace arma;
 
 double GammaPrior(IntegerVector gamma, int p, int q) {
 	IntegerVector ind(p);
-	ind[gamma[Range(0,p-1)]>0.5]=1;
+	ind[gamma[Range(0,p-1)]>0]=1;
 	int pvar = sum(ind);
 	double pr;
 	if(q > 0.5){
