@@ -18,18 +18,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// CentMat
-arma::mat CentMat(arma::mat X, arma::vec meanX);
-RcppExport SEXP bmsaplm_CentMat(SEXP XSEXP, SEXP meanXSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type meanX(meanXSEXP);
-    rcpp_result_gen = Rcpp::wrap(CentMat(X, meanX));
-    return rcpp_result_gen;
-END_RCPP
-}
 // CombBasis
 arma::mat CombBasis(arma::mat X, List knM);
 RcppExport SEXP bmsaplm_CombBasis(SEXP XSEXP, SEXP knMSEXP) {
@@ -534,7 +522,6 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"bmsaplm_Basis", (DL_FUNC) &bmsaplm_Basis, 2},
-    {"bmsaplm_CentMat", (DL_FUNC) &bmsaplm_CentMat, 2},
     {"bmsaplm_CombBasis", (DL_FUNC) &bmsaplm_CombBasis, 2},
     {"bmsaplm_DeltaPrior", (DL_FUNC) &bmsaplm_DeltaPrior, 8},
     {"bmsaplm_Eta", (DL_FUNC) &bmsaplm_Eta, 4},

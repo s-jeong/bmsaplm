@@ -5,11 +5,6 @@ Basis <- function(t, knM) {
     .Call('bmsaplm_Basis', PACKAGE = 'bmsaplm', t, knM)
 }
 
-#' @export
-CentMat <- function(X, meanX) {
-    .Call('bmsaplm_CentMat', PACKAGE = 'bmsaplm', X, meanX)
-}
-
 CombBasis <- function(X, knM) {
     .Call('bmsaplm_CombBasis', PACKAGE = 'bmsaplm', X, knM)
 }

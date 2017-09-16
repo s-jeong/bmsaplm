@@ -1,17 +1,16 @@
 Package: bmsaplm
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Bayesian model selection for additive partial linear models
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Seonghyun Jeong
+Maintainer: Seonghyun Jeong <sjeong4@ncsu.edu>
+Description: Bayesian model selection for additive partial linear models using spline basis search.
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 LinkingTo: Rcpp,
     RcppArmadillo,
 Imports: Rcpp,
-    RcppArmadillo
-Depends: RcppArmadillo, nleqslv, CAMAN
+    RcppArmadillo,
+Depends: nleqslv
