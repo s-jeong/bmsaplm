@@ -6,6 +6,7 @@ estaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), mcmc.n=2000, mcmc.burnin=1
 	X=as.matrix(X)
 	n=length(y)
 	p=ncol(X)
+	p.ztgeo=rep(0.4,p)
 	colnamesX=colnames(X)
 	if(is.null(Z)){
 		colnamesZ=NULL
@@ -13,8 +14,9 @@ estaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), mcmc.n=2000, mcmc.burnin=1
 	}else{
 		Z=as.matrix(Z)
 		colnamesZ=colnames(Z)
+		colmeanZ=colMeans(Z)
 		if(is.null(colnamesZ)) colnamesZ=paste("Z",1:r,sep="")
-		Z=sweep(Z,2,colMeans(Z))
+		Z=sweep(Z,2,colmeanZ)
 		r=ncol(Z)
 	}
 	if(is.null(colnamesX)) colnamesX=paste("X",1:p,sep="")
@@ -60,7 +62,7 @@ estaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), mcmc.n=2000, mcmc.burnin=1
 	cat("Estimation:",'\n')
 	cat("0% =================== 50% =================== 100%",'\n')
 	for(iter in 1:num){
-		MCMC.est=MCMCEstIteration(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur,-3/4)
+		MCMC.est=MCMCEstIteration(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur,-3/4, p.ztgeo)
 		delta=MCMC.est[[1]]
 		log.BF.cur=MCMC.est[[3]]
 		Fset.int[iter]=MCMC.est[[7]]
@@ -71,6 +73,7 @@ estaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), mcmc.n=2000, mcmc.burnin=1
 		if(iter%%round(max(1,num/50))==0) cat(paste(rep("+",round(50*iter/num)),collapse=""),"\r")
 	}
 	cat("",'\n');cat("",'\n')
+	Fset.int=Fset.int-Fset.fixeff[,(ncol(Fset.fixeff)-r+1):ncol(Fset.fixeff)]%*%colmeanZ
 	Fset.delta=lapply(split(as.data.frame(Fset.delta.comb),rep(1:p,mapply(length,delta))),function(x)t(as.matrix(x)))
 	set.int=Fset.int[-(1:mcmc.burnin)]
 	set.qv=Fset.qv[-(1:mcmc.burnin)]

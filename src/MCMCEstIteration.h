@@ -15,8 +15,8 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 
-List MCMCEstIteration(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur,double a) {
-	List sam_delta = PilotSampleDeltaGlobalUpdateVec(X,y,delta,gamma,listdelta,numkn,n,p,q,logbf_cur);
+List MCMCEstIteration(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur,double a, NumericVector phat) {
+	List sam_delta = PilotSampleDeltaGlobalUpdateVec(X,y,delta,gamma,listdelta,numkn,n,p,q,logbf_cur,phat);
 	List temp_delta = sam_delta(0);
 	double temp_logbf = sam_delta(1);
 	IntegerVector vdelta = Eta(temp_delta,gamma,p,q);

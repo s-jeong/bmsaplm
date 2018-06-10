@@ -184,8 +184,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // MCMCEstIteration
-List MCMCEstIteration(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur, double a);
-RcppExport SEXP bmsaplm_MCMCEstIteration(SEXP XSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP logbf_curSEXP, SEXP aSEXP) {
+List MCMCEstIteration(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur, double a, NumericVector phat);
+RcppExport SEXP bmsaplm_MCMCEstIteration(SEXP XSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP logbf_curSEXP, SEXP aSEXP, SEXP phatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -200,7 +200,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
     Rcpp::traits::input_parameter< double >::type logbf_cur(logbf_curSEXP);
     Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    rcpp_result_gen = Rcpp::wrap(MCMCEstIteration(X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur, a));
+    Rcpp::traits::input_parameter< NumericVector >::type phat(phatSEXP);
+    rcpp_result_gen = Rcpp::wrap(MCMCEstIteration(X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur, a, phat));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -230,8 +231,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // PilotSampleDelta
-IntegerVector PilotSampleDelta(IntegerVector sel_ind, IntegerVector fordelta, List listdelta, int numkn);
-RcppExport SEXP bmsaplm_PilotSampleDelta(SEXP sel_indSEXP, SEXP fordeltaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP) {
+IntegerVector PilotSampleDelta(IntegerVector sel_ind, IntegerVector fordelta, List listdelta, int numkn, double phat);
+RcppExport SEXP bmsaplm_PilotSampleDelta(SEXP sel_indSEXP, SEXP fordeltaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP phatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -239,13 +240,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type fordelta(fordeltaSEXP);
     Rcpp::traits::input_parameter< List >::type listdelta(listdeltaSEXP);
     Rcpp::traits::input_parameter< int >::type numkn(numknSEXP);
-    rcpp_result_gen = Rcpp::wrap(PilotSampleDelta(sel_ind, fordelta, listdelta, numkn));
+    Rcpp::traits::input_parameter< double >::type phat(phatSEXP);
+    rcpp_result_gen = Rcpp::wrap(PilotSampleDelta(sel_ind, fordelta, listdelta, numkn, phat));
     return rcpp_result_gen;
 END_RCPP
 }
 // PilotSampleDeltaGlobalUpdate
-List PilotSampleDeltaGlobalUpdate(NumericMatrix X, arma::vec y, List indset, List delta, IntegerVector gamma, List listdelta, int numkn, int n, int p, int q, int z, double logbf_cur);
-RcppExport SEXP bmsaplm_PilotSampleDeltaGlobalUpdate(SEXP XSEXP, SEXP ySEXP, SEXP indsetSEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP zSEXP, SEXP logbf_curSEXP) {
+List PilotSampleDeltaGlobalUpdate(NumericMatrix X, arma::vec y, List indset, List delta, IntegerVector gamma, List listdelta, int numkn, int n, int p, int q, int z, double logbf_cur, double phat);
+RcppExport SEXP bmsaplm_PilotSampleDeltaGlobalUpdate(SEXP XSEXP, SEXP ySEXP, SEXP indsetSEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP zSEXP, SEXP logbf_curSEXP, SEXP phatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -261,13 +263,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
     Rcpp::traits::input_parameter< int >::type z(zSEXP);
     Rcpp::traits::input_parameter< double >::type logbf_cur(logbf_curSEXP);
-    rcpp_result_gen = Rcpp::wrap(PilotSampleDeltaGlobalUpdate(X, y, indset, delta, gamma, listdelta, numkn, n, p, q, z, logbf_cur));
+    Rcpp::traits::input_parameter< double >::type phat(phatSEXP);
+    rcpp_result_gen = Rcpp::wrap(PilotSampleDeltaGlobalUpdate(X, y, indset, delta, gamma, listdelta, numkn, n, p, q, z, logbf_cur, phat));
     return rcpp_result_gen;
 END_RCPP
 }
 // PilotSampleDeltaGlobalUpdateVec
-List PilotSampleDeltaGlobalUpdateVec(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur);
-RcppExport SEXP bmsaplm_PilotSampleDeltaGlobalUpdateVec(SEXP XSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP logbf_curSEXP) {
+List PilotSampleDeltaGlobalUpdateVec(NumericMatrix X, arma::vec y, List delta, IntegerVector gamma, List listdelta, IntegerVector numkn, int n, int p, int q, double logbf_cur, NumericVector phat);
+RcppExport SEXP bmsaplm_PilotSampleDeltaGlobalUpdateVec(SEXP XSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP logbf_curSEXP, SEXP phatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -281,13 +284,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
     Rcpp::traits::input_parameter< double >::type logbf_cur(logbf_curSEXP);
-    rcpp_result_gen = Rcpp::wrap(PilotSampleDeltaGlobalUpdateVec(X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur));
+    Rcpp::traits::input_parameter< NumericVector >::type phat(phatSEXP);
+    rcpp_result_gen = Rcpp::wrap(PilotSampleDeltaGlobalUpdateVec(X, y, delta, gamma, listdelta, numkn, n, p, q, logbf_cur, phat));
     return rcpp_result_gen;
 END_RCPP
 }
 // PilotSampleDeltaUpdate
-List PilotSampleDeltaUpdate(NumericMatrix X, arma::vec y, IntegerVector sel_ind, List delta, IntegerVector gamma, List listdelta, int numkn, int n, int p, int q, int z, double logbf_cur);
-RcppExport SEXP bmsaplm_PilotSampleDeltaUpdate(SEXP XSEXP, SEXP ySEXP, SEXP sel_indSEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP zSEXP, SEXP logbf_curSEXP) {
+List PilotSampleDeltaUpdate(NumericMatrix X, arma::vec y, IntegerVector sel_ind, List delta, IntegerVector gamma, List listdelta, int numkn, int n, int p, int q, int z, double logbf_cur, double phat);
+RcppExport SEXP bmsaplm_PilotSampleDeltaUpdate(SEXP XSEXP, SEXP ySEXP, SEXP sel_indSEXP, SEXP deltaSEXP, SEXP gammaSEXP, SEXP listdeltaSEXP, SEXP numknSEXP, SEXP nSEXP, SEXP pSEXP, SEXP qSEXP, SEXP zSEXP, SEXP logbf_curSEXP, SEXP phatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -303,7 +307,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
     Rcpp::traits::input_parameter< int >::type z(zSEXP);
     Rcpp::traits::input_parameter< double >::type logbf_cur(logbf_curSEXP);
-    rcpp_result_gen = Rcpp::wrap(PilotSampleDeltaUpdate(X, y, sel_ind, delta, gamma, listdelta, numkn, n, p, q, z, logbf_cur));
+    Rcpp::traits::input_parameter< double >::type phat(phatSEXP);
+    rcpp_result_gen = Rcpp::wrap(PilotSampleDeltaUpdate(X, y, sel_ind, delta, gamma, listdelta, numkn, n, p, q, z, logbf_cur, phat));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -494,28 +499,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ZTBBPrior
-double ZTBBPrior(IntegerVector fordelta, int numkn);
-RcppExport SEXP bmsaplm_ZTBBPrior(SEXP fordeltaSEXP, SEXP numknSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type fordelta(fordeltaSEXP);
-    Rcpp::traits::input_parameter< int >::type numkn(numknSEXP);
-    rcpp_result_gen = Rcpp::wrap(ZTBBPrior(fordelta, numkn));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ZTBinPrior
-double ZTBinPrior(IntegerVector fordelta, int numkn, double phat);
-RcppExport SEXP bmsaplm_ZTBinPrior(SEXP fordeltaSEXP, SEXP numknSEXP, SEXP phatSEXP) {
+// ZTGeoPrior
+double ZTGeoPrior(IntegerVector fordelta, int numkn, double phat);
+RcppExport SEXP bmsaplm_ZTGeoPrior(SEXP fordeltaSEXP, SEXP numknSEXP, SEXP phatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type fordelta(fordeltaSEXP);
     Rcpp::traits::input_parameter< int >::type numkn(numknSEXP);
     Rcpp::traits::input_parameter< double >::type phat(phatSEXP);
-    rcpp_result_gen = Rcpp::wrap(ZTBinPrior(fordelta, numkn, phat));
+    rcpp_result_gen = Rcpp::wrap(ZTGeoPrior(fordelta, numkn, phat));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -532,12 +525,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"bmsaplm_MainSampleDeltaGlobalUpdateVec", (DL_FUNC) &bmsaplm_MainSampleDeltaGlobalUpdateVec, 11},
     {"bmsaplm_MainSampleDeltaUpdate", (DL_FUNC) &bmsaplm_MainSampleDeltaUpdate, 13},
     {"bmsaplm_MakeInd", (DL_FUNC) &bmsaplm_MakeInd, 1},
-    {"bmsaplm_MCMCEstIteration", (DL_FUNC) &bmsaplm_MCMCEstIteration, 11},
+    {"bmsaplm_MCMCEstIteration", (DL_FUNC) &bmsaplm_MCMCEstIteration, 12},
     {"bmsaplm_MCMCOneIteration", (DL_FUNC) &bmsaplm_MCMCOneIteration, 15},
-    {"bmsaplm_PilotSampleDelta", (DL_FUNC) &bmsaplm_PilotSampleDelta, 4},
-    {"bmsaplm_PilotSampleDeltaGlobalUpdate", (DL_FUNC) &bmsaplm_PilotSampleDeltaGlobalUpdate, 12},
-    {"bmsaplm_PilotSampleDeltaGlobalUpdateVec", (DL_FUNC) &bmsaplm_PilotSampleDeltaGlobalUpdateVec, 10},
-    {"bmsaplm_PilotSampleDeltaUpdate", (DL_FUNC) &bmsaplm_PilotSampleDeltaUpdate, 12},
+    {"bmsaplm_PilotSampleDelta", (DL_FUNC) &bmsaplm_PilotSampleDelta, 5},
+    {"bmsaplm_PilotSampleDeltaGlobalUpdate", (DL_FUNC) &bmsaplm_PilotSampleDeltaGlobalUpdate, 13},
+    {"bmsaplm_PilotSampleDeltaGlobalUpdateVec", (DL_FUNC) &bmsaplm_PilotSampleDeltaGlobalUpdateVec, 11},
+    {"bmsaplm_PilotSampleDeltaUpdate", (DL_FUNC) &bmsaplm_PilotSampleDeltaUpdate, 13},
     {"bmsaplm_PseudoPrior", (DL_FUNC) &bmsaplm_PseudoPrior, 5},
     {"bmsaplm_PseudoSampleDelta", (DL_FUNC) &bmsaplm_PseudoSampleDelta, 4},
     {"bmsaplm_PseudoSampleDeltaVec", (DL_FUNC) &bmsaplm_PseudoSampleDeltaVec, 7},
@@ -549,8 +542,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"bmsaplm_SampleGammaNonlinearVec", (DL_FUNC) &bmsaplm_SampleGammaNonlinearVec, 14},
     {"bmsaplm_Subset", (DL_FUNC) &bmsaplm_Subset, 3},
     {"bmsaplm_CombBasisCpp", (DL_FUNC) &bmsaplm_CombBasisCpp, 2},
-    {"bmsaplm_ZTBBPrior", (DL_FUNC) &bmsaplm_ZTBBPrior, 2},
-    {"bmsaplm_ZTBinPrior", (DL_FUNC) &bmsaplm_ZTBinPrior, 3},
+    {"bmsaplm_ZTGeoPrior", (DL_FUNC) &bmsaplm_ZTGeoPrior, 3},
     {NULL, NULL, 0}
 };
 

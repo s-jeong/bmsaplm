@@ -4,14 +4,14 @@
 #include <RcppArmadillo.h>
 //#include <RcppArmadilloExtensions/sample.h>
 //#include "RcppArmadilloSample.h"
-#include "ZTBBPrior.h"
+#include "ZTGeoPrior.h"
 
 using namespace Rcpp;
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
 
-IntegerVector PilotSampleDelta(IntegerVector sel_ind, IntegerVector fordelta, List listdelta, int numkn) {
+IntegerVector PilotSampleDelta(IntegerVector sel_ind, IntegerVector fordelta, List listdelta, int numkn, double phat) {
 	NumericVector prob(pow(2,sel_ind.size()));
 	IntegerVector curdelta(numkn+1);
 	for(int i = 0; i < numkn+1; i++) {
@@ -23,7 +23,8 @@ IntegerVector PilotSampleDelta(IntegerVector sel_ind, IntegerVector fordelta, Li
 		for(int j = 0; j < sel_ind.size(); j++) {
 			curdelta[sel_ind[j]-1] = cand[j];
 		}
-		prob[i]=ZTBBPrior(curdelta,numkn);
+//		prob[i]=ZTBBPrior(curdelta,numkn);
+		prob[i]=ZTGeoPrior(curdelta,numkn,phat);
 	}
 	CharacterVector sel_ch=as<CharacterVector>(wrap(seq_len(pow(2,sel_ind.size()))));
 	IntegerVector seq_ind=seq_len(pow(2,sel_ind.size()));

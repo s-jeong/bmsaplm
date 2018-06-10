@@ -3,7 +3,8 @@
 
 #include <RcppArmadillo.h>
 #include "PseudoPrior.h"
-#include "ZTBinPrior.h"
+#include "ZTGeoPrior.h"
+
 
 using namespace Rcpp;
 using namespace arma;
@@ -15,7 +16,8 @@ double DeltaPrior(List listdelta, IntegerVector gamma, NumericVector mu, Numeric
 	NumericVector pr(p);
 	for(int i = 0; i < p; i++) {
 		if(gamma[i]==2){
-			pr[i]=ZTBinPrior(listdelta[i],numkn[i],phat[i]);
+//			pr[i]=ZTBinPrior(listdelta[i],numkn[i],phat[i]);
+			pr[i]=ZTGeoPrior(listdelta[i],numkn[i],phat[i]);
 		}else{
 			pr[i]=PseudoPrior(listdelta[i],mu[i],var[i],numkn[i],mu0[i]);
 		}

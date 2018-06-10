@@ -4,7 +4,7 @@
 #include <RcppArmadillo.h>
 // #include <RcppArmadilloExtensions/sample.h>
 // #include "RcppArmadilloSample.h"
-#include "ZTBinPrior.h"
+#include "ZTGeoPrior.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -24,7 +24,8 @@ IntegerVector MainSampleDelta(IntegerVector sel_ind, IntegerVector fordelta, Lis
 		for(int j = 0; j < sel_ind.size(); j++) {
 			curdelta[sel_ind[j]-1] = cand[j];
 		}
-		prob[i]=ZTBinPrior(curdelta,numkn,phat);
+//		prob[i]=ZTBinPrior(curdelta,numkn,phat);
+		prob[i]=ZTGeoPrior(curdelta,numkn,phat);
 	}
 	CharacterVector sel_ch=as<CharacterVector>(wrap(seq_len(pow(2,sel_ind.size()))));
 	IntegerVector seq_ind=seq_len(pow(2,sel_ind.size()));

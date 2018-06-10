@@ -6,6 +6,7 @@ bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, 
 	X=as.matrix(X)
 	n=length(y)
 	p=ncol(X)
+	p.ztgeo=rep(0.4,p)
 	colnamesX=colnames(X)
 	if(is.null(Z)){
 		colnamesZ=NULL
@@ -59,7 +60,7 @@ bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, 
 	cat("Pilot chain:",'\n')
 	cat("0% =================== 50% =================== 100%",'\n')
 	for(iter in 1:pilot.num){
-		delta.iter=PilotSampleDeltaGlobalUpdateVec(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur)
+		delta.iter=PilotSampleDeltaGlobalUpdateVec(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur,p.ztgeo)
 		delta=delta.iter[[1]]
 		log.BF.cur=delta.iter[[2]]
 		Fset.delta.comb[,iter]=unlist(delta)
@@ -87,7 +88,6 @@ bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, 
 		var.delta[j]=sol[2]^2
 	}
 	delta.var=rep(1,p+r)
-	p.hat=temp.m.delta/numkn
 	Fset.sigma.sq=Fset.qv=Fset.int=c()
 	Fset.delta.comb=matrix(,length(unlist(delta)),main.num)
 	Fset.delta.var=matrix(NA,main.num,p+r)
@@ -96,7 +96,7 @@ bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, 
 	cat("Main chain:",'\n')
 	cat("0% =================== 50% =================== 100%",'\n')
 	for(iter in 1:main.num){
-		MCMC.one=MCMCOneIteration(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur,p.hat,m.delta,var.delta,mean.delta0,-3/4)
+		MCMC.one=MCMCOneIteration(WstarM.Zi,y,delta,delta.var,temp.list.delta,numkn,n,p,r,log.BF.cur,p.ztgeo,m.delta,var.delta,mean.delta0,-3/4)
 		delta=MCMC.one[[1]]
 		delta.var=MCMC.one[[2]]
 		log.BF.cur=MCMC.one[[3]]
