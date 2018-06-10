@@ -4,7 +4,7 @@
 \title{Bayesian estimation for additive paritial linear models}
 \usage{
 estaplm(y, X, Z = NULL, nKnot = rep(20,ncol(X)),
-        mcmc.n, mcmc.burnin)
+        mcmc.n, mcmc.burnin, hyper.parameter)
 }
 \arguments{
 \item{y}{response vector.}
@@ -13,6 +13,7 @@ estaplm(y, X, Z = NULL, nKnot = rep(20,ncol(X)),
 \item{nKnot}{integer vector; the number of knots for smooth functions. The default is 20 for each predictor in X.}
 \item{mcmc.n}{integer; the number of MCMC samples after burnin. The default is 2000.}
 \item{mcmc.burnin}{integer; the number of burnin-iterations. The default is 100.}
+\item{hyper.parameter}{a single value or a vector, between 0 and 1; the hyperparameter for the zero-truncated geometric prior. The default is 0.4.}
 }
 \description{
 This function is to estimate an additive partial linear model under a certain model formulation. An additive model can also be treated since it is a subclass of an additive partial linear model.

@@ -4,7 +4,7 @@
 \title{Bayesian model selection for additive paritial linear models}
 \usage{
 bmsaplm(y, X, Z = NULL, nKnot = rep(20,ncol(X)),
-        pilot.n, main.n, pilot.burnin, main.burnin)
+        pilot.n, main.n, pilot.burnin, main.burnin, hyper.parameter)
 }
 \arguments{
 \item{y}{response vector}
@@ -15,6 +15,7 @@ bmsaplm(y, X, Z = NULL, nKnot = rep(20,ncol(X)),
 \item{main.n}{integer; the number of MCMC samples for a main chain after burnin. The default is 2000.}
 \item{pilot.burnin}{integer; the number of burnin-iterations for a pilot chain. The default is 50.}
 \item{main.burnin}{integer; the number of burnin-iterations for a main chain. The default is 50.}
+\item{hyper.parameter}{a single value or a vector, between 0 and 1; the hyperparameter for the zero-truncated geometric prior. The default is 0.4.}
 }
 \description{
 This function is to perform model selection for an additive partial linear model using spline basis search. An additive model can also be treated since it is a subclass of an additive partial linear model.

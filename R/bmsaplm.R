@@ -1,4 +1,4 @@
-bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, pilot.burnin=50, main.burnin=50){
+bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, pilot.burnin=50, main.burnin=50, hyper.parameter=0.4){
 	this.call=match.call()
 	pilot.num=pilot.n+pilot.burnin
 	main.num=main.n+main.burnin
@@ -6,7 +6,13 @@ bmsaplm=function(y, X, Z=NULL, nKnot=rep(20,ncol(X)), pilot.n=300, main.n=2000, 
 	X=as.matrix(X)
 	n=length(y)
 	p=ncol(X)
-	p.ztgeo=rep(0.4,p)
+	if(any(hyper.parameter<=0 | hyper.parameter>=1)) stop("Provide a value (or a vector) that is strictly between 0 and 1 for the hyperparameter.")
+	if(length(hyper.parameter)!=1 & length(hyper.parameter)!=p) stop("Provide a single value or a p-dimensional vector for the hyperparameter.")
+	if(length(hyper.parameter)==1){
+	  p.ztgeo=rep(hyper.parameter,p)
+	} else {
+	  p.ztgeo=hyper.parameter
+	}
 	colnamesX=colnames(X)
 	if(is.null(Z)){
 		colnamesZ=NULL
